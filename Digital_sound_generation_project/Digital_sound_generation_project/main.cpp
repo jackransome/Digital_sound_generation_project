@@ -8,22 +8,26 @@ using namespace std;
 
 constexpr double two_pi = 6.283185307179586476925286766559;
 
-namespace little_endian_io
+
+template <typename Word>
+std::ostream& write_word(std::ostream& outs, Word value, unsigned size = sizeof(Word))
 {
-	template <typename Word>
-	std::ostream& write_word(std::ostream& outs, Word value, unsigned size = sizeof(Word))
-	{
-		for (; size; --size, value >>= 8)
-			outs.put(static_cast <char> (value & 0xFF));
-		return outs;
-	}
+	for (; size; --size, value >>= 8)
+		outs.put(static_cast <char> (value & 0xFF));
+	//printf("%d", value);
+	return outs;
 }
-using namespace little_endian_io;
+
+
 
 float sawOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude) {
-	float newFrequency = (float)sampleFrequency / frequency;
-	float placeInWave = fmod(float(time) + phase * newFrequency + newFrequency / 2, newFrequency);
-	float normalizedPlaceInWave = placeInWave / (float)newFrequency;
+	//number of samples in a wavelength
+	float waveLengthInSamples = (float)sampleFrequency / frequency;
+	//position in the full wavelength
+	float placeInWave = fmod(float(time) + phase * waveLengthInSamples + waveLengthInSamples / 2, waveLengthInSamples);
+	//normalized position (range from 0 to waveLengthInSamples converted to 0 to 1)
+	float normalizedPlaceInWave = placeInWave / (float)waveLengthInSamples;
+	//finding the displacement at this point in time
 	float final = amplitude - (normalizedPlaceInWave * amplitude) + ((float)maxAmplitude / 2 - amplitude / 2);
 	return final;
 }
