@@ -77,15 +77,16 @@ float triangleOscillator(int time, float frequency, float amplitude, float phase
 
 //white noise generator
 int noiseGenerator(int amplitude) {
-	return rand() * amplitude - amplitude/2;
+	return rand() * amplitude - amplitude / 2;
 }
 //a test, cycling through all forms of sound generaton
 int runTests(int time, int max_amplitude, int sampleRate) {
-	int x = fmod(time / 20000, 5);
+	int x = fmod(time / 8000, 8);
 	int value;
 	switch (x) {
 	case 0:
-		value = sinOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
+		for (int i = 0; i < 50; i +=1)
+		value = sinOscillator(time, 10+i, max_amplitude/2, 0, sampleRate, max_amplitude);
 		break;
 	case 1:
 		value = sawOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
@@ -94,10 +95,19 @@ int runTests(int time, int max_amplitude, int sampleRate) {
 		value = squareOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
 		break;
 	case 3:
-		value = triangleOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
+		value = sawOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
 		break;
 	case 4:
-		value = noiseGenerator(max_amplitude / 2);
+		value = noiseGenerator(max_amplitude / 4);
+		break;
+	case 5:
+		value = sawOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
+		break;
+	case 6:
+		value = squareOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
+		break;
+	case 7:
+		value = sawOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
 		break;
 	default:
 		value = noiseGenerator(max_amplitude / 2);
@@ -129,7 +139,7 @@ int main()
 	// Write the data chunk header
 	size_t data_chunk_pos = f.tellp();
 	f << "data----";  // (chunk size to be filled in later)
-
+	int lastl = 0, lastr = 0;
 	int N = sampleRate * seconds;  // total number of samples
 	for (int n = 0; n < N; n++)
 	{
@@ -171,9 +181,22 @@ int main()
 		//correcting the range from +=ampltude/2 to 0 to amplitude
 		valuel += max_amplitude / 2;
 		valuer += max_amplitude / 2;
+		
+		if (fmod(n,1000) < 500 ) {
+			//valuel = lastl;
+			//valuer = lastr;
+		}
+		if (fmod(n, 2000) > n/150) {
+			//valuel = triangleOscillator(n, 120, max_amplitude / 3, 0, sampleRate, max_amplitude);
+			//valuer = triangleOscillator(n, 120, max_amplitude / 3, 0, sampleRate, max_amplitude);
+		}
+
 		//writing left and right channels
 		write_word(f, valuel, 2);
 		write_word(f, valuer, 2);
+		
+		lastl = valuel;
+		lastr = valuer;
 	}
 
 	// (We'll need the final file size to fix the chunk sizes above)
