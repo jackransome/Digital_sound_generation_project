@@ -79,6 +79,7 @@ float triangleOscillator(int time, float frequency, float amplitude, float phase
 int noiseGenerator(int amplitude) {
 	return rand() * amplitude - amplitude / 2;
 }
+
 //a test, cycling through all forms of sound generaton
 int runTests(int time, int max_amplitude, int sampleRate) {
 	int x = fmod(time / 8000, 8);
