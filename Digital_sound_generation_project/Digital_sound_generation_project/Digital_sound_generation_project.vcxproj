@@ -116,6 +116,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sequencer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Envelope.h" />
+    <ClInclude Include="Note.h" />
+    <ClInclude Include="Sequencer.h" />
+    <ClInclude Include="Synthesizer.h.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
