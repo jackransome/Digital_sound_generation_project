@@ -4,6 +4,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+#include "Sequencer.h"
 constexpr double two_pi = 6.283185307179586476925286766559;
 
 //writes "words" to the file
@@ -16,70 +17,7 @@ std::ostream& write_word(std::ostream& outs, Word value, unsigned size = sizeof(
 }
 
 //wave generators generate waveforms in the range of -amplitude/2 to amplitude/2
-
-//saw wave generator
-float sawOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude) {
-	//get number of samples in a wavelength
-	float waveLengthInSamples = (float)sampleFrequency / frequency;
-	//get position in the full wavelength
-	float placeInWave = fmod(time + phase * waveLengthInSamples + waveLengthInSamples / 2, waveLengthInSamples);
-	//get normalized position (range from 0 to waveLengthInSamples converted to 0 to 1)
-	float normalizedPlaceInWave = placeInWave / (float)waveLengthInSamples;
-	//finding the displacement at this point in time
-	float final = (amplitude / 2 - (normalizedPlaceInWave * amplitude))/* +((float)maxAmplitude / 2)*/;
-	return final;
-}
-
-//sin wave generator
-float sinOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude) {
-	//get number of samples in a wavelength
-	float waveLengthInSamples = (float)sampleFrequency / frequency;
-	//get position in the full wavelength
-	float placeInWave = fmod(time + phase * waveLengthInSamples + waveLengthInSamples / 2, waveLengthInSamples);
-	//get normalized position (range from 0 to waveLengthInSamples converted to 0 to 1)
-	float normalizedPlaceInWave = placeInWave / (float)waveLengthInSamples;
-	//finding the displacement at this point in time
-	float final = sin(two_pi * (normalizedPlaceInWave)) * amplitude/* +((float)maxAmplitude / 2)*/;
-	return final;
-}
-
-//square wave generator
-float squareOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude) {
-	//get number of samples in a wavelength
-	float waveLengthInSamples = (float)sampleFrequency / frequency;
-	//get position in the full wavelength
-	float placeInWave = fmod(time + phase * waveLengthInSamples + waveLengthInSamples / 2, waveLengthInSamples);
-	//get normalized position (range from 0 to waveLengthInSamples converted to 0 to 1)
-	float normalizedPlaceInWave = placeInWave / (float)waveLengthInSamples;
-	//finding the displacement at this point in time
-	float final = (round(normalizedPlaceInWave) * amplitude - amplitude/2)/* +((float)maxAmplitude / 2)*/;
-	return final;
-}
-
-//triangle wave generator
-float triangleOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude) {
-	//get number of samples in a wavelength
-	float waveLengthInSamples = (float)sampleFrequency / frequency;
-	//get position in the full wavelength
-	float placeInWave = fmod(time + phase * waveLengthInSamples + waveLengthInSamples / 2, waveLengthInSamples);
-	//get normalized position (range from 0 to waveLengthInSamples converted to 0 to 1)
-	float normalizedPlaceInWave = placeInWave / (float)waveLengthInSamples;
-	//finding the displacement at this point in time
-	float final;
-	if (normalizedPlaceInWave < 0.5) {
-		final = (2 * normalizedPlaceInWave * amplitude - amplitude/2)/* +((float)maxAmplitude / 2)*/;
-	}
-	else {
-		final = (amplitude/2 - 2 * (normalizedPlaceInWave - 0.5) * amplitude)/* +((float)maxAmplitude / 2)*/;
-	}
-	return final;
-}
-
-//white noise generator
-int noiseGenerator(int amplitude) {
-	return rand() * amplitude - amplitude / 2;
-}
-
+/*
 //a test, cycling through all forms of sound generaton
 int runTests(int time, int max_amplitude, int sampleRate) {
 	int x = fmod(time / 8000, 8);
@@ -116,7 +54,7 @@ int runTests(int time, int max_amplitude, int sampleRate) {
 	}
 	return value;
 }
-
+*/
 int main()
 {
 	//wav properties
@@ -142,17 +80,23 @@ int main()
 	f << "data----";  // (chunk size to be filled in later)
 	int lastl = 0, lastr = 0;
 	int N = sampleRate * seconds;  // total number of samples
+
+	Sequencer sequencer;
+	sequencer.addNote(sampleRate * 4, 400, sampleRate * 1, 0.2, 1, -1, sequencer.getEnvelope(1*sampleRate, 0, 1, 1*sampleRate));
+	sequencer.addNote(sampleRate * 4, 500, sampleRate * 3, 0.2, 1, -1, sequencer.getEnvelope(1*sampleRate, 0, 1, 1*sampleRate));
+	sequencer.addNote(sampleRate * 4, 600, sampleRate * 5, 0.2, 1, -1, sequencer.getEnvelope(1*sampleRate, 0, 1, 1*sampleRate));
+
 	for (int n = 0; n < N; n++)
 	{
+		//sequencer.run(n, sampleRate, max_amplitude);
 		//---options---//
 		bool switchChannelsEverySample = false;
 		bool invertSamples = false;
 		bool willRunTests = true;
 		//-------------//
-
 		//generating the sound
-		int valuel = 0;
-		int valuer = 0;
+		int valuel = sequencer.run(n, sampleRate, max_amplitude);
+		int valuer = sequencer.run(n, sampleRate, max_amplitude);
 
 		//int valuel = sinOscillator(n, 200, amplitude / 2, sinOscillator(n, pow(n, 2) / (float)10000000000, 2, 0, hz, 1), hz, max_amplitude);
 		//int valuer = sinOscillator(n, 200, amplitude / 2, sinOscillator(n, pow(n, 2) / (float)10000000000, 2, 0, hz, 1), hz, max_amplitude);
@@ -163,8 +107,8 @@ int main()
 		//-----optional-manipulation----//
 		//runs test looping through all forms of sound generation
 		if (willRunTests) {
-			valuel += runTests(n, max_amplitude, sampleRate);
-			valuer += runTests(n, max_amplitude, sampleRate);
+			//valuel += runTests(n, max_amplitude, sampleRate);
+			//valuer += runTests(n, max_amplitude, sampleRate);
 		}
 		//switches the channels every sample
 		if ((double)n / 2 == floor((double)n / 2) && switchChannelsEverySample) {

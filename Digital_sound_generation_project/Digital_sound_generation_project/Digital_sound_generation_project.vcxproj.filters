@@ -21,6 +21,9 @@
     <ClCompile Include="Sequencer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Synthesizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sequencer.h">
@@ -32,7 +35,7 @@
     <ClInclude Include="Envelope.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Synthesizer.h.h">
+    <ClInclude Include="Synthesizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
