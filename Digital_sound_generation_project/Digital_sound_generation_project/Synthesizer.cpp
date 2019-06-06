@@ -62,6 +62,8 @@ float Synthesizer::triangleOscillator(int time, float frequency, float amplitude
 }
 
 //white noise generator
-int Synthesizer::noiseGenerator(int amplitude) {
-	return rand() * amplitude - amplitude / 2;
+float Synthesizer::noiseGenerator(float amplitude) {
+	float random = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	float final = random * amplitude / 2 - amplitude / 2;
+	return final;
 }

@@ -55,6 +55,15 @@ int runTests(int time, int max_amplitude, int sampleRate) {
 	return value;
 }
 */
+Sequencer sequencer;
+
+void test(float speed, float start, float sampleRate) {
+	sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.4 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.6 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.8 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
+}
+
 int main()
 {
 	//wav properties
@@ -81,10 +90,44 @@ int main()
 	int lastl = 0, lastr = 0;
 	int N = sampleRate * seconds;  // total number of samples
 
-	Sequencer sequencer;
-	sequencer.addNote(sampleRate * 4, 400, sampleRate * 1, 0.2, 1, -1, sequencer.getEnvelope(1*sampleRate, 0, 1, 1*sampleRate));
-	sequencer.addNote(sampleRate * 4, 500, sampleRate * 3, 0.2, 1, -1, sequencer.getEnvelope(1*sampleRate, 0, 1, 1*sampleRate));
-	sequencer.addNote(sampleRate * 4, 600, sampleRate * 5, 0.2, 1, -1, sequencer.getEnvelope(1*sampleRate, 0, 1, 1*sampleRate));
+	sequencer.addNote(sampleRate * 8, 300, 0, 0.5, 0, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 300 * 2, 0, 0.1*0.8, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 300 * 4, 0, 0.1*0.6, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+
+	//sequencer.addNote(sampleRate * 8, 300 * 4, 0, 0.1*0.4, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate * 8, 300 * 8, 0, 0.1*0.4, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate * 8, 300 * 16, 0, 0.1*0.2, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate * 8, 300 * 32, 0, 0.1*0.5, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+
+	/*sequencer.addNote(sampleRate * 8, 300, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 300 * 2, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 300 * 4, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 300 * 8, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 300 * 16, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 300 * 32, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));*/
+
+	/*
+	sequencer.addNote(sampleRate * 0.1, 400, sampleRate * 1, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	sequencer.addNote(sampleRate * 0.1, 400 * 1.3, sampleRate * 1.1, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	sequencer.addNote(sampleRate * 0.1, 400 * 1.3*1.3, sampleRate * 1.2, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	sequencer.addNote(sampleRate * 0.1, 400 * 1.3*1.3*1.3, sampleRate * 1.3, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	sequencer.addNote(sampleRate * 0.1, 400, sampleRate * 1.4, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	sequencer.addNote(sampleRate * 0.1, 400 * 1.4, sampleRate * 1.5, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	sequencer.addNote(sampleRate * 0.1, 400 * 1.4 * 1.4, sampleRate * 1.6, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	sequencer.addNote(sampleRate * 0.1, 400 * 1.4 * 1.4 * 1.4, sampleRate * 1.7, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	
+	//sequencer.addNote(sampleRate * 1, 300, sampleRate * 1, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	for (int i = 0; i < 70; i++) {
+		sequencer.addNote(sampleRate * 0.3, 100 + (float)i/5.0f, sampleRate * (i * 0.3), 0.02, 1, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+		for (int j = 0; j < 3; j++) {
+			sequencer.addNote(sampleRate * 0.1, 400*pow(1.0f+(float)i/50.0f,j), sampleRate * ( i * 0.3 + j * 0.1), 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+		}
+	}*/
+	
+	for (int i = 0; i < 10; i++) {
+		//sequencer.addNote(sampleRate * 1, 300, sampleRate * 2 * i, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
+	}
+
 
 	for (int n = 0; n < N; n++)
 	{
@@ -124,8 +167,8 @@ int main()
 		//------------------------------//
 
 		//correcting the range from +=ampltude/2 to 0 to amplitude
-		valuel += max_amplitude / 2;
-		valuer += max_amplitude / 2;
+		//valuel += max_amplitude / 2;
+		//valuer += max_amplitude / 2;
 		
 		if (fmod(n,1000) < 500 ) {
 			//valuel = lastl;

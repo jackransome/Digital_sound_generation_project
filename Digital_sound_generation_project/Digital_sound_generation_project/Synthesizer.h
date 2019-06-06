@@ -11,7 +11,7 @@ public:
 	//square wave generator
 	float squareOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude);
 	//white noise generator
-	int noiseGenerator(int amplitude);
+	float noiseGenerator(float amplitude);
 private:
 	int i;
 };
