@@ -3,6 +3,9 @@
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <random>
+#include <math.h>
+#include <vector>
 
 #include "Sequencer.h"
 constexpr double two_pi = 6.283185307179586476925286766559;
@@ -58,10 +61,10 @@ int runTests(int time, int max_amplitude, int sampleRate) {
 Sequencer sequencer;
 
 void test(float speed, float start, float sampleRate) {
-	sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.4 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.6 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.8 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.4 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.6 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.8 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
 }
 
 int main()
@@ -69,7 +72,7 @@ int main()
 	//wav properties
 	constexpr double max_amplitude = 32760;  // "volume"
 	int sampleRate = 44100;    // samples per second
-	double seconds = 20;      // time
+	double seconds = 60;      // time
 	double bitsPerSample = 32;
 
 	//opening the file
@@ -90,62 +93,43 @@ int main()
 	int lastl = 0, lastr = 0;
 	int N = sampleRate * seconds;  // total number of samples
 
-	sequencer.addNote(sampleRate * 8, 300, 0, 0.5, 0, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 8, 300 * 2, 0, 0.1*0.8, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 8, 300 * 4, 0, 0.1*0.6, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	sequencer.setSampleFrequency(sampleRate);
 
-	//sequencer.addNote(sampleRate * 8, 300 * 4, 0, 0.1*0.4, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	//sequencer.addNote(sampleRate * 8, 300 * 8, 0, 0.1*0.4, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	//sequencer.addNote(sampleRate * 8, 300 * 16, 0, 0.1*0.2, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	//sequencer.addNote(sampleRate * 8, 300 * 32, 0, 0.1*0.5, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	std::random_device dev;
+	std::mt19937 rng(dev());
+	std::uniform_int_distribution<std::mt19937::result_type> dist100(1, 30); // distribution in range [1, 6]
 
-	/*sequencer.addNote(sampleRate * 8, 300, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 8, 300 * 2, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 8, 300 * 4, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 8, 300 * 8, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 8, 300 * 16, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate * 8, 300 * 32, sampleRate * 8, 0.1, 2, -1, sequencer.getEnvelope(0, 0, 1, 0));*/
+	//std::cout << dist6(rng) << std::endl;
 
-	/*
-	sequencer.addNote(sampleRate * 0.1, 400, sampleRate * 1, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	sequencer.addNote(sampleRate * 0.1, 400 * 1.3, sampleRate * 1.1, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	sequencer.addNote(sampleRate * 0.1, 400 * 1.3*1.3, sampleRate * 1.2, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	sequencer.addNote(sampleRate * 0.1, 400 * 1.3*1.3*1.3, sampleRate * 1.3, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	sequencer.addNote(sampleRate * 0.1, 400, sampleRate * 1.4, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	sequencer.addNote(sampleRate * 0.1, 400 * 1.4, sampleRate * 1.5, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	sequencer.addNote(sampleRate * 0.1, 400 * 1.4 * 1.4, sampleRate * 1.6, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	sequencer.addNote(sampleRate * 0.1, 400 * 1.4 * 1.4 * 1.4, sampleRate * 1.7, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	
-	//sequencer.addNote(sampleRate * 1, 300, sampleRate * 1, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	for (int i = 0; i < 70; i++) {
-		sequencer.addNote(sampleRate * 0.3, 100 + (float)i/5.0f, sampleRate * (i * 0.3), 0.02, 1, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-		for (int j = 0; j < 3; j++) {
-			sequencer.addNote(sampleRate * 0.1, 400*pow(1.0f+(float)i/50.0f,j), sampleRate * ( i * 0.3 + j * 0.1), 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-		}
-	}*/
-	
-	for (int i = 0; i < 10; i++) {
-		//sequencer.addNote(sampleRate * 1, 300, sampleRate * 2 * i, 0.1, 2, -1, sequencer.getEnvelope(0.1*sampleRate, 0, 1, 0 * sampleRate));
-	}
+	//sequencer.addNote(sampleRate * 10, 500, 0, 0.1, 0, -1, sequencer.getEnvelope(0, 0, 1, 0));
+	float newFreq;
+	float secondFreq;
+	float currentTime = 0;
+	int j = 0;
+	int amount = 0;
+	std::vector<int> newFreqs;
+
+	float center = 200 * pow(1 / 0.9438746262083767, floor(dist100(rng) / 5));
+
+	// sequencer.addNote(sampleRate * 16, 500, 0, 0.25, 0, 6, -1, sequencer.getEnvelope(sampleRate*0.05, 0, 1, sampleRate*0.05));
+	sequencer.addNote(sampleRate * 16, 75, 0, 0.5, 0, 1, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+
+
 
 
 	for (int n = 0; n < N; n++)
 	{
 		//sequencer.run(n, sampleRate, max_amplitude);
+
 		//---options---//
 		bool switchChannelsEverySample = false;
 		bool invertSamples = false;
 		bool willRunTests = true;
 		//-------------//
+
 		//generating the sound
 		int valuel = sequencer.run(n, sampleRate, max_amplitude);
 		int valuer = sequencer.run(n, sampleRate, max_amplitude);
-
-		//int valuel = sinOscillator(n, 200, amplitude / 2, sinOscillator(n, pow(n, 2) / (float)10000000000, 2, 0, hz, 1), hz, max_amplitude);
-		//int valuer = sinOscillator(n, 200, amplitude / 2, sinOscillator(n, pow(n, 2) / (float)10000000000, 2, 0, hz, 1), hz, max_amplitude);
-
-		//valuel += sinOscillator(n, 301, max_amplitude / 4, 0, sampleRate, max_amplitude);
-		//valuer += sinOscillator(n, 301, max_amplitude / 4, 0, sampleRate, max_amplitude);
 
 		//-----optional-manipulation----//
 		//runs test looping through all forms of sound generation
@@ -165,19 +149,6 @@ int main()
 			valuer = max_amplitude - valuer;
 		}
 		//------------------------------//
-
-		//correcting the range from +=ampltude/2 to 0 to amplitude
-		//valuel += max_amplitude / 2;
-		//valuer += max_amplitude / 2;
-		
-		if (fmod(n,1000) < 500 ) {
-			//valuel = lastl;
-			//valuer = lastr;
-		}
-		if (fmod(n, 2000) > n/150) {
-			//valuel = triangleOscillator(n, 120, max_amplitude / 3, 0, sampleRate, max_amplitude);
-			//valuer = triangleOscillator(n, 120, max_amplitude / 3, 0, sampleRate, max_amplitude);
-		}
 
 		//writing left and right channels
 		write_word(f, valuel, 2);

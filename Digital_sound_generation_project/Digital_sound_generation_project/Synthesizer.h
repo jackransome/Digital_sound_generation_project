@@ -12,6 +12,10 @@ public:
 	float squareOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude);
 	//white noise generator
 	float noiseGenerator(float amplitude);
+	//dot generator
+	float dotGenerator(int time, int startTime, int duration, float amplitude, int maxAmplitude);
+	//pwm generator
+	float pwmGenerator(int startTime, int time, float dutyCycle, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude);
 private:
 	int i;
 };
