@@ -19,60 +19,14 @@ std::ostream& write_word(std::ostream& outs, Word value, unsigned size = sizeof(
 	return outs;
 }
 
-//wave generators generate waveforms in the range of -amplitude/2 to amplitude/2
-/*
-//a test, cycling through all forms of sound generaton
-int runTests(int time, int max_amplitude, int sampleRate) {
-	int x = fmod(time / 8000, 8);
-	int value;
-	switch (x) {
-	case 0:
-		for (int i = 0; i < 50; i +=1)
-		value = sinOscillator(time, 10+i, max_amplitude/2, 0, sampleRate, max_amplitude);
-		break;
-	case 1:
-		value = sawOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
-		break;
-	case 2:
-		value = squareOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
-		break;
-	case 3:
-		value = sawOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
-		break;
-	case 4:
-		value = noiseGenerator(max_amplitude / 4);
-		break;
-	case 5:
-		value = sawOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
-		break;
-	case 6:
-		value = squareOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
-		break;
-	case 7:
-		value = sawOscillator(time, 300, max_amplitude / 4, 0, sampleRate, max_amplitude);
-		break;
-	default:
-		value = noiseGenerator(max_amplitude / 2);
-		break;
-	}
-	return value;
-}
-*/
 Sequencer sequencer;
-
-void test(float speed, float start, float sampleRate) {
-	//sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	//sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.4 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	//sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.6 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	//sequencer.addNote(sampleRate * 0.1 * speed, 300, sampleRate * start + sampleRate * 0.8 * speed, 0.05, 1, -1, sequencer.getEnvelope(0, 0, 1, 0));
-}
 
 int main()
 {
 	//wav properties
 	constexpr double max_amplitude = 32760;  // "volume"
 	int sampleRate = 44100;    // samples per second
-	double seconds = 60;      // time
+	double seconds = 30;      // time
 	double bitsPerSample = 32;
 
 	//opening the file
@@ -94,32 +48,13 @@ int main()
 	int N = sampleRate * seconds;  // total number of samples
 
 	sequencer.setSampleFrequency(sampleRate);
+	
+	sequencer.addNote(sampleRate * 10, 75, 0, 0.5, 1, Envelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
 
-	std::random_device dev;
-	std::mt19937 rng(dev());
-	std::uniform_int_distribution<std::mt19937::result_type> dist100(1, 30); // distribution in range [1, 6]
-
-	//std::cout << dist6(rng) << std::endl;
-
-	//sequencer.addNote(sampleRate * 10, 500, 0, 0.1, 0, -1, sequencer.getEnvelope(0, 0, 1, 0));
-	float newFreq;
-	float secondFreq;
-	float currentTime = 0;
-	int j = 0;
-	int amount = 0;
-	std::vector<int> newFreqs;
-
-	float center = 200 * pow(1 / 0.9438746262083767, floor(dist100(rng) / 5));
-
-	// sequencer.addNote(sampleRate * 16, 500, 0, 0.25, 0, 6, -1, sequencer.getEnvelope(sampleRate*0.05, 0, 1, sampleRate*0.05));
-	sequencer.addNote(sampleRate * 16, 75, 0, 0.5, 0, 1, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
-
-
-
+	sequencer.addLFO(&sequencer.getLastNote()->volume, 0, 1, 1, 1);
 
 	for (int n = 0; n < N; n++)
 	{
-		//sequencer.run(n, sampleRate, max_amplitude);
 
 		//---options---//
 		bool switchChannelsEverySample = false;

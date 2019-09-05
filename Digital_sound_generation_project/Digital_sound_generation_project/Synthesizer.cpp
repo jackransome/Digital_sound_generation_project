@@ -4,20 +4,31 @@
 constexpr double two_pi = 6.283185307179586476925286766559;
 
 //saw wave generator
-float Synthesizer::sawOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude) {
+float Synthesizer::sawOscillator(int time, float frequency, float phase, int sampleFrequency, float min, float max) {
 	//get number of samples in a wavelength
 	float waveLengthInSamples = (float)sampleFrequency / frequency;
 	//get position in the full wavelength
 	float placeInWave = fmod(time + phase * waveLengthInSamples + waveLengthInSamples / 2, waveLengthInSamples);
 	//get normalized position (range from 0 to waveLengthInSamples converted to 0 to 1)
 	float normalizedPlaceInWave = placeInWave / (float)waveLengthInSamples;
+	//finding the "middle":
+	float middle = (max - min) / 2;
+	//finding half amplitude
+	
+	float halfAmplitude = max - middle;
+
 	//finding the displacement at this point in time
-	float final = (amplitude / 2 - (normalizedPlaceInWave * amplitude))/* +((float)maxAmplitude / 2)*/;
-	return final;
+
+	if (normalizedPlaceInWave < 0.5) {
+		return middle - normalizedPlaceInWave * 2 * halfAmplitude;
+	}
+	else {
+		return middle + (1 - normalizedPlaceInWave) * 2 * halfAmplitude;
+	}
 }
 
 //sin wave generator
-float Synthesizer::sinOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude) {
+float Synthesizer::sinOscillator(int time, float frequency, float phase, int sampleFrequency, float min, float max) {
 	
 
 	//get number of samples in a wavelength
@@ -27,12 +38,12 @@ float Synthesizer::sinOscillator(int time, float frequency, float amplitude, flo
 	//get normalized position (range from 0 to waveLengthInSamples converted to 0 to 1)
 	float normalizedPlaceInWave = placeInWave / (float)waveLengthInSamples;
 	//finding the displacement at this point in time
-	float final = sin(two_pi * (normalizedPlaceInWave)) * amplitude/* +((float)maxAmplitude / 2)*/;
+	float final = 0;//sin(two_pi * (normalizedPlaceInWave)) * amplitude/* +((float)maxAmplitude / 2)*/;
 	return final;
 }
 
 //square wave generator
-float Synthesizer::squareOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude) {
+float Synthesizer::squareOscillator(int time, float frequency, float phase, int sampleFrequency, float min, float max) {
 	//get number of samples in a wavelength
 	float waveLengthInSamples = (float)sampleFrequency / frequency;
 	//get position in the full wavelength
@@ -40,12 +51,12 @@ float Synthesizer::squareOscillator(int time, float frequency, float amplitude, 
 	//get normalized position (range from 0 to waveLengthInSamples converted to 0 to 1)
 	float normalizedPlaceInWave = placeInWave / (float)waveLengthInSamples;
 	//finding the displacement at this point in time
-	float final = (round(normalizedPlaceInWave) * amplitude - amplitude / 2)/* +((float)maxAmplitude / 2)*/;
+	float final = 0;// (round(normalizedPlaceInWave) * amplitude - amplitude / 2)/* +((float)maxAmplitude / 2)*/;
 	return final;
 }
 
 //triangle wave generator
-float Synthesizer::triangleOscillator(int time, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude) {
+float Synthesizer::triangleOscillator(int time, float frequency, float phase, int sampleFrequency, float min, float max) {
 	//get number of samples in a wavelength
 	float waveLengthInSamples = (float)sampleFrequency / frequency;
 	//get position in the full wavelength
@@ -55,10 +66,10 @@ float Synthesizer::triangleOscillator(int time, float frequency, float amplitude
 	//finding the displacement at this point in time
 	float final;
 	if (normalizedPlaceInWave < 0.5) {
-		final = (2 * normalizedPlaceInWave * amplitude - amplitude / 2)/* +((float)maxAmplitude / 2)*/;
+		final = 0;// (2 * normalizedPlaceInWave * amplitude - amplitude / 2)/* +((float)maxAmplitude / 2)*/;
 	}
 	else {
-		final = (amplitude / 2 - 2 * (normalizedPlaceInWave - 0.5) * amplitude)/* +((float)maxAmplitude / 2)*/;
+		final = 0;// (amplitude / 2 - 2 * (normalizedPlaceInWave - 0.5) * amplitude)/* +((float)maxAmplitude / 2)*/;
 	}
 	return final;
 }
@@ -86,14 +97,14 @@ float Synthesizer::dotGenerator(int time, int startTime, int duration, float vol
 	return 0;
 }
 
-float Synthesizer::pwmGenerator(int startTime, int time, float dutyCycle, float frequency, float amplitude, float phase, int sampleFrequency, int maxAmplitude)
+float Synthesizer::pwmGenerator(int startTime, int time, float dutyCycle, float frequency, float phase, int sampleFrequency, float min, float max)
 {
 	float wavelength = (float)sampleFrequency / frequency;
 	float placeInWave = fmod((time - startTime), wavelength);
 	float normalizedPlaceInWave = placeInWave / (float)wavelength;
 
 	if (normalizedPlaceInWave < dutyCycle) {
-		return amplitude;
+		return 0;// amplitude;
 	}
 	else {
 		return 0;
