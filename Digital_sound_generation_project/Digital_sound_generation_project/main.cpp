@@ -91,7 +91,7 @@ int main()
 	size_t data_chunk_pos = f.tellp();
 	f << "data----";  // (chunk size to be filled in later)
 	int lastl = 0, lastr = 0;
-	int N = sampleRate * seconds;  // total number of samples
+	int N = sampleRate *  seconds;  // total number of samples
 
 	sequencer.setSampleFrequency(sampleRate);
 
@@ -112,9 +112,123 @@ int main()
 	float center = 200 * pow(1 / 0.9438746262083767, floor(dist100(rng) / 5));
 
 	// sequencer.addNote(sampleRate * 16, 500, 0, 0.25, 0, 6, -1, sequencer.getEnvelope(sampleRate*0.05, 0, 1, sampleRate*0.05));
-	sequencer.addNote(sampleRate * 16, 75, 0, 0.5, 0, 1, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	int modifier = 30;
+	int bpm = 130;
+	int noteLength = (sampleRate / bpm)*60;
 
-
+	sequencer.addNote(noteLength, 19 * modifier, noteLength * 0, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 13 * modifier, noteLength * 0, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 19 * modifier, noteLength * 1, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 13 * modifier, noteLength * 1, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 18 * modifier, noteLength * 2, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 12 * modifier, noteLength * 2, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 17 * modifier, noteLength * 3, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 11 * modifier, noteLength * 3, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 19 * modifier, noteLength * 4, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 12 * modifier, noteLength * 4, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 18 * modifier, noteLength * 5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 12 * modifier, noteLength * 5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 17 * modifier, noteLength * 6, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 12 * modifier, noteLength * 6, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 18 * modifier, noteLength * 7, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 12 * modifier, noteLength * 7, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 18 * modifier, noteLength * 8, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 12 * modifier, noteLength * 8, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 18 * modifier, noteLength * 9, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 12 * modifier, noteLength * 9, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength / 2, 17 * modifier, noteLength * 10, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 16 * modifier, noteLength * 10.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 11 * modifier, noteLength * 10, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 12 * modifier, noteLength * 10.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 16 * modifier, noteLength * 11, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 10 * modifier, noteLength * 11, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 11 * modifier, noteLength * 11.25, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 10 * modifier, noteLength * 11.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 11 * modifier, noteLength * 11.75, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 16 * modifier, noteLength * 12, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 11 * modifier, noteLength * 12, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 10 * modifier, noteLength * 12.25, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 11 * modifier, noteLength * 12.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 10 * modifier, noteLength * 12.75, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 16 * modifier, noteLength * 13, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 11 * modifier, noteLength * 13, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 15 * modifier, noteLength * 14, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 12 * modifier, noteLength * 14, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 15 * modifier, noteLength * 15, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 11 * modifier, noteLength * 15, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 15 * modifier, noteLength * 16, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 10 * modifier, noteLength * 16, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 15 * modifier, noteLength * 17, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 10 * modifier, noteLength * 17, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 15 * modifier, noteLength * 18, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 10 * modifier, noteLength * 18, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#19
+	sequencer.addNote(noteLength, 15 * modifier, noteLength * 19, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 10 * modifier, noteLength * 19, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 14 * modifier, noteLength * 20, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 10 * modifier, noteLength * 20, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 13 * modifier, noteLength * 21, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 9 * modifier, noteLength * 21, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 12 * modifier, noteLength * 22, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 10 * modifier, noteLength * 22, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength / 2, 11.5 * modifier, noteLength * 23, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 11 * modifier, noteLength * 23.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 9.5 * modifier, noteLength * 23, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 9 * modifier, noteLength * 23.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#24
+	sequencer.addNote(noteLength / 2, 10 * modifier, noteLength * 24, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 9 * modifier, noteLength * 24.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 8.5 * modifier, noteLength * 24, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 8 * modifier, noteLength * 24.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 4, 9.5 * modifier, noteLength * 24.75, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength / 2, 9 * modifier, noteLength * 25, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 8.5 * modifier, noteLength * 25.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 8 * modifier, noteLength * 25, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength / 2, 7.5 * modifier, noteLength * 25.5, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#26
+	sequencer.addNote(noteLength, 8 * modifier, noteLength * 26, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 8 * modifier, noteLength * 26, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 8 * modifier, noteLength * 27, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 8 * modifier, noteLength * 27, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 9 * modifier, noteLength * 28, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 9 * modifier, noteLength * 28, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 11 * modifier, noteLength * 29, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 11 * modifier, noteLength * 29, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 15 * modifier, noteLength * 30, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 15 * modifier, noteLength * 30, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 23 * modifier, noteLength * 31, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 23 * modifier, noteLength * 31, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	//#
+	sequencer.addNote(noteLength, 39 * modifier, noteLength * 31, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
+	sequencer.addNote(noteLength, 39 * modifier, noteLength * 31, 0.1,0, 0, -1, sequencer.getEnvelope(sampleRate*0.01, 0, 1, sampleRate*0.01));
 
 
 	for (int n = 0; n < N; n++)
