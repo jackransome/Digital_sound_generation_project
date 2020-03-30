@@ -38,5 +38,11 @@
     <ClInclude Include="Synthesizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Lfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Splitter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
