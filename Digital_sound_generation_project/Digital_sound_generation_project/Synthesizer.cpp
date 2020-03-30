@@ -28,7 +28,7 @@ float Synthesizer::sawOscillator(int time, float frequency, float phase, int sam
 }
 
 //sin wave generator
-float Synthesizer::sinOscillator(int time, float frequency, float phase, int sampleFrequency, float min, float max) {
+float Synthesizer::sinOscillator(int time, float frequency, float phase, int sampleFrequency) {
 	
 
 	//get number of samples in a wavelength
@@ -38,7 +38,7 @@ float Synthesizer::sinOscillator(int time, float frequency, float phase, int sam
 	//get normalized position (range from 0 to waveLengthInSamples converted to 0 to 1)
 	float normalizedPlaceInWave = placeInWave / (float)waveLengthInSamples;
 	//finding the displacement at this point in time
-	float final = 0;//sin(two_pi * (normalizedPlaceInWave)) * amplitude/* +((float)maxAmplitude / 2)*/;
+	float final = sin(two_pi * (normalizedPlaceInWave));
 	return final;
 }
 

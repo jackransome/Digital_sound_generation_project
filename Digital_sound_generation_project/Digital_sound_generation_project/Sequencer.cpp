@@ -9,7 +9,7 @@ float Sequencer::run(int time, int sampleFrequency, int maxAmplitude)
 			//notes.erase(notes.begin() + i);
 			//i--;
 		}
-		else if (time > notes[i].startTime){
+		else if (time >= notes[i].startTime){
 			if (time < notes[i].startTime + notes[i].getTotalDuration()) {
 				//if too close to the end, return 0
 				float waveLengthInSamples = (float)sampleFrequency / notes[i].frequency;
@@ -65,6 +65,11 @@ int Sequencer::getSize()
 	return notes.size();
 }
 
+Envelope Sequencer::getEnvelope(float _attack, float _decay, float _sustain, float _release)
+{
+	return Envelope(_attack, _decay, _sustain, _release);
+}
+
 float Sequencer::getFreq(int _index)
 {
 	return notes[_index].frequency;
@@ -82,7 +87,7 @@ void Sequencer::applyLFO(int time)
 		//0: sin, 1: saw, 2: triangle, 3: square, 4: noise, 5: clipping dot, 6: pwm
 		switch (LFOs[i].waveForm) {
 		case 0:
-			 value = synthesizer.sinOscillator(time, LFOs[i].frequency, 1, LFOs[i].startPhase, sampleFrequency, LFOs[i].amplitude);
+			 value = synthesizer.sinOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 1:
 			value = synthesizer.sawOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency, 0, LFOs[i].amplitude);
@@ -111,7 +116,7 @@ void Sequencer::removeLFO(int time)
 		//0: sin, 1: saw, 2: triangle, 3: square, 4: noise, 5: clipping dot, 6: pwm
 		switch (LFOs[i].waveForm) {
 		case 0:
-			value = synthesizer.sinOscillator(time, LFOs[i].frequency, 1, LFOs[i].startPhase, sampleFrequency, LFOs[i].amplitude);
+			value = synthesizer.sinOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 1:
 			value = synthesizer.sawOscillator(time, LFOs[i].frequency, 1, LFOs[i].startPhase, sampleFrequency, LFOs[i].amplitude);
@@ -141,7 +146,7 @@ float Sequencer::playNote(Note note, int time, int sampleFrequency, int maxAmpli
 	//0: sin, 1: saw, 2: triangle, 3: square, 4: noise, 5: clipping dot, 6: pwm
 	switch (note.generationType) {
 	case 0:
-		output = synthesizer.sinOscillator(time, note.frequency, envelopeAmplitude, note.startPhase, sampleFrequency, maxAmplitude);
+		output = synthesizer.sinOscillator(time, note.frequency, note.startPhase, sampleFrequency) * envelopeAmplitude;
 		break;
 	case 1:
 		output = synthesizer.sawOscillator(time, note.frequency, note.startPhase, sampleFrequency, envelopeAmplitude * maxAmplitude * -0.5, envelopeAmplitude * maxAmplitude * 0.5);

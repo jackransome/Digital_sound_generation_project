@@ -14,6 +14,7 @@ public:
 	void setSampleFrequency(int _sampleFrequency);
 	void addLFO(float* _target, float _startPhase, float _frequency, int _waveForm, float _amplitude);
 	int getSize();
+	Envelope getEnvelope(float _attack, float _decay, float _sustain, float _release);
 	float getFreq(int _index);
 	Note* getLastNote();
 	void applyLFO(int time);

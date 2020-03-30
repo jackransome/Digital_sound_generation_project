@@ -3,7 +3,7 @@ class Synthesizer{
 public:
 	// wave generators generate waveforms in the range of - amplitude / 2 to amplitude / 2
 	//sin wave generator
-	float sinOscillator(int time, float frequency, float phase, int sampleFrequency, float min, float max);
+	float sinOscillator(int time, float frequency, float phase, int sampleFrequency);
 	//saw wave generator
 	float sawOscillator(int time, float frequency, float phase, int sampleFrequency, float min, float max);
 	//triangle wave generator
