@@ -72,10 +72,13 @@ int main()
 	int bpm = 130;
 	int noteLength = (sampleRate / bpm)*60;
 
-	sequencer.addNote(sampleRate, 440, 0, 0.5, 0, Envelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate, 440, 0, 0.2, 0, Envelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate, 220, sampleRate, 0.2, 1, Envelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate, 660, sampleRate * 2, 0.2, 2, Envelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate, 440, sampleRate * 3, 0.2, 3, Envelope(0, 0, 1, 0));
 
 	sequencer.addLFO(&sequencer.getLastNote()->volume, 0, 1, 1, 1);
-
+	std::vector<float> pastValues;
 	for (int n = 0; n < N; n++)
 	{
 
@@ -88,7 +91,6 @@ int main()
 		//generating the sound
 		int valuel = sequencer.run(n, sampleRate, max_amplitude);
 		int valuer = sequencer.run(n, sampleRate, max_amplitude);
-
 		//-----optional-manipulation----//
 		//runs test looping through all forms of sound generation
 		if (willRunTests) {

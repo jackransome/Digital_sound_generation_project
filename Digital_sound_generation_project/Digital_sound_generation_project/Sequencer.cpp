@@ -20,13 +20,10 @@ float Sequencer::run(int time, int sampleFrequency, int maxAmplitude)
 						int y = 0;
 						y--;
 					}
-					Note temp = notes[i];
 					//applying lfo
 					// applyLFO(time);
 					//adds the displacement from the note at the current time to the final sequencer output
 					output += playNote(notes[i], time, sampleFrequency, maxAmplitude);
-
-					notes[i] = temp;
 				}
 				
 			}
@@ -87,22 +84,22 @@ void Sequencer::applyLFO(int time)
 		//0: sin, 1: saw, 2: triangle, 3: square, 4: noise, 5: clipping dot, 6: pwm
 		switch (LFOs[i].waveForm) {
 		case 0:
-			 value = synthesizer.sinOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
+			value = synthesizer.sinOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 1:
-			value = synthesizer.sawOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency, 0, LFOs[i].amplitude);
+			value = synthesizer.sawOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 2:
-			value = synthesizer.triangleOscillator(time, LFOs[i].frequency, 1, LFOs[i].startPhase, sampleFrequency, LFOs[i].amplitude);
+			value = synthesizer.triangleOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 3:
-			value = synthesizer.squareOscillator(time, LFOs[i].frequency, 1, LFOs[i].startPhase, sampleFrequency, LFOs[i].amplitude);
+			value = synthesizer.squareOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 4:
-			value = synthesizer.noiseGenerator(time);
+			value = synthesizer.noiseGenerator() * LFOs[i].amplitude;
 			break;
 		case 6:
-			// value = synthesizer.pwmGenerator(time, LFOs[i].frequency, LFOs[i].amplitude, LFOs[i].startPhase, sampleFrequency, maxAmplitude);
+			//value = synthesizer.pwmGenerator(time, LFOs[i].frequency, LFOs[i].amplitude, LFOs[i].startPhase, sampleFrequency, maxAmplitude);
 			break;
 		}
 		*LFOs[i].target *= value;
@@ -119,52 +116,52 @@ void Sequencer::removeLFO(int time)
 			value = synthesizer.sinOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 1:
-			value = synthesizer.sawOscillator(time, LFOs[i].frequency, 1, LFOs[i].startPhase, sampleFrequency, LFOs[i].amplitude);
+			value = synthesizer.sawOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 2:
-			value = synthesizer.triangleOscillator(time, LFOs[i].frequency, 1, LFOs[i].startPhase, sampleFrequency, LFOs[i].amplitude);
+			value = synthesizer.triangleOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 3:
-			value = synthesizer.squareOscillator(time, LFOs[i].frequency, 1, LFOs[i].startPhase, sampleFrequency, LFOs[i].amplitude);
+			value = synthesizer.squareOscillator(time, LFOs[i].frequency, LFOs[i].startPhase, sampleFrequency) * LFOs[i].amplitude;
 			break;
 		case 4:
-			value = synthesizer.noiseGenerator(time);
+			value = synthesizer.noiseGenerator() * LFOs[i].amplitude;
 			break;
 		case 6:
-			// value = synthesizer.pwmGenerator(time, LFOs[i].frequency, LFOs[i].amplitude, LFOs[i].startPhase, sampleFrequency, maxAmplitude);
+			//value = synthesizer.pwmGenerator(time, LFOs[i].frequency, LFOs[i].amplitude, LFOs[i].startPhase, sampleFrequency, maxAmplitude);
 			break;
 		}
 		*LFOs[i].target /= value;
 	}
 }
 
-float Sequencer::playNote(Note note, int time, int sampleFrequency, int maxAmplitude)
+float Sequencer::playNote(Note _note, int _time, int _sampleFrequency, int _maxAmplitude)
 {
 	float output = 0;
 	//getting the apmlitude of the envelope at this point in time
-	float envelopeAmplitude = getEnvelopeAmplitude(note, time);
+	float envelopeAmplitude = getEnvelopeAmplitude(_note, _time);
 	//0: sin, 1: saw, 2: triangle, 3: square, 4: noise, 5: clipping dot, 6: pwm
-	switch (note.generationType) {
+	switch (_note.generationType) {
 	case 0:
-		output = synthesizer.sinOscillator(time, note.frequency, note.startPhase, sampleFrequency) * envelopeAmplitude;
+		output = synthesizer.sinOscillator(_time, _note.frequency, _note.startPhase, _sampleFrequency) * envelopeAmplitude;
 		break;
 	case 1:
-		output = synthesizer.sawOscillator(time, note.frequency, note.startPhase, sampleFrequency, envelopeAmplitude * maxAmplitude * -0.5, envelopeAmplitude * maxAmplitude * 0.5);
+		output = synthesizer.sawOscillator(_time, _note.frequency, _note.startPhase, _sampleFrequency) * envelopeAmplitude;
 		break;
 	case 2:
-		output = synthesizer.triangleOscillator(time, note.frequency, envelopeAmplitude, note.startPhase, sampleFrequency, maxAmplitude);
+		output = synthesizer.triangleOscillator(_time, _note.frequency, _note.startPhase, _sampleFrequency) * envelopeAmplitude;
 		break;
 	case 3:
-		output = synthesizer.squareOscillator(time, note.frequency, envelopeAmplitude, note.startPhase, sampleFrequency, maxAmplitude);
+		output = synthesizer.squareOscillator(_time, _note.frequency, _note.startPhase, _sampleFrequency) * envelopeAmplitude;
 		break;
 	case 4:
-		output = synthesizer.noiseGenerator(envelopeAmplitude);
+		output = synthesizer.noiseGenerator() * envelopeAmplitude;
 		break;
 	case 5:
-		output = synthesizer.dotGenerator(time, note.startTime, note.duration, note.volume, maxAmplitude);
+		output = synthesizer.dotGenerator(_time, _note.startTime, _note.duration, _note.volume, _maxAmplitude);
 		break;
 	case 6:
-		output = synthesizer.pwmGenerator(note.startTime, time, note.dutyCycle, note.frequency, envelopeAmplitude, note.startPhase, sampleFrequency, maxAmplitude);
+		output = synthesizer.pwmGenerator(_note.startTime, _time, _note.dutyCycle, _note.frequency, _note.startPhase, _sampleFrequency) * envelopeAmplitude;
 		break;
 	}
 	//printf("%f\n", output);
