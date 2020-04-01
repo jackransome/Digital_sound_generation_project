@@ -6,6 +6,7 @@
 #include <random>
 #include <math.h>
 #include <vector>
+#include <queue>
 
 #include "Sequencer.h"
 constexpr double two_pi = 6.283185307179586476925286766559;
@@ -71,17 +72,28 @@ int main()
 	int modifier = 30;
 	int bpm = 130;
 	int noteLength = (sampleRate / bpm)*60;
-
-	sequencer.addNote(sampleRate, 440, 0, 0.2, 0, Envelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate, 220, sampleRate, 0.2, 1, Envelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate, 660, sampleRate * 2, 0.2, 2, Envelope(0, 0, 1, 0));
-	sequencer.addNote(sampleRate, 440, sampleRate * 3, 0.2, 3, Envelope(0, 0, 1, 0));
+	
+	sequencer.addNote(sampleRate*8, 440, 0, 0.2, 4, Envelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate, 440, 0, 0.2, 0, Envelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate, 220, sampleRate, 0.2, 1, Envelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate, 660, sampleRate * 2, 0.2, 2, Envelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate, 440, sampleRate * 3, 0.2, 3, Envelope(0, 0, 1, 0));
 
 	sequencer.addLFO(&sequencer.getLastNote()->volume, 0, 1, 1, 1);
-	std::vector<float> pastValues;
+
+	float cutoff = 50;
+	float minCutoff = 50;
+	std::vector<int> previousValues;
+	int delay = sampleRate/cutoff;
+	int queueLength = sampleRate / minCutoff;
+	for (int i = 0; i < queueLength; i++) {
+		previousValues.push_back(0);
+	}
+
 	for (int n = 0; n < N; n++)
 	{
-
+		cutoff += 0.05;
+		delay = sampleRate / cutoff;
 		//---options---//
 		bool switchChannelsEverySample = false;
 		bool invertSamples = false;
@@ -89,8 +101,16 @@ int main()
 		//-------------//
 
 		//generating the sound
+
+		int thing = previousValues[previousValues.size() - delay];
+		previousValues.erase(previousValues.begin());
+
 		int valuel = sequencer.run(n, sampleRate, max_amplitude);
 		int valuer = sequencer.run(n, sampleRate, max_amplitude);
+		previousValues.push_back(valuel);
+		valuel += thing;
+		valuer += thing;
+
 		//-----optional-manipulation----//
 		//runs test looping through all forms of sound generation
 		if (willRunTests) {
