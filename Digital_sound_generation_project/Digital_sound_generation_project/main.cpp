@@ -8,6 +8,7 @@
 #include <vector>
 #include <queue>
 
+#include "Automater.h"
 #include "Sequencer.h"
 constexpr double two_pi = 6.283185307179586476925286766559;
 
@@ -24,6 +25,16 @@ Sequencer sequencer;
 
 int main()
 {
+
+	Automater automater;
+	automater.addPoint(0, 0);
+	automater.addPoint(10, 20);
+	automater.addPoint(20, 5);
+	for (int i = 0; i < 60; i++) {
+		printf("time: %d, value: %f\n", i, automater.getValueAtTime(i));
+	}
+	automater.printPoints();
+	while (true){}
 	//wav properties
 	constexpr double max_amplitude = 32760;  // "volume"
 	int sampleRate = 44100;    // samples per second

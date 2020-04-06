@@ -1,27 +1,28 @@
-﻿  main.cpp
+﻿  Automater.cpp
+  main.cpp
 c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\splitter.h(6): warning C4018: '<': signed/unsigned mismatch
 c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\note.h(18): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(46): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(49): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(69): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(76): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(87): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(88): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(95): warning C4305: '+=': truncation from 'double' to 'float'
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(96): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(108): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(108): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(109): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(109): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(124): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(128): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(129): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(142): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(62): warning C4101: 'newFreq': unreferenced local variable
-c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(63): warning C4101: 'secondFreq': unreferenced local variable
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(59): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(62): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(82): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(89): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(100): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(101): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(108): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(109): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(121): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(121): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(122): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(122): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(137): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(141): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(142): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(155): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(75): warning C4101: 'newFreq': unreferenced local variable
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\main.cpp(76): warning C4101: 'secondFreq': unreferenced local variable
   Generating code
-  1 of 443 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
+c:\users\jack\documents\github\digital_sound_generation_project\digital_sound_generation_project\digital_sound_generation_project\automater.cpp(16): error C4700: uninitialized local variable 'newPoint' used
+  4 of 446 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    3 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  Digital_sound_generation_project.vcxproj -> C:\Users\Jack\Documents\GitHub\Digital_sound_generation_project\Digital_sound_generation_project\Release\Digital_sound_generation_project.exe
+LINK : fatal error LNK1257: code generation failed

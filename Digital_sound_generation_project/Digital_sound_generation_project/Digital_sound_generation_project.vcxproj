@@ -115,11 +115,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Automater.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sequencer.cpp" />
     <ClCompile Include="Synthesizer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Automater.h" />
     <ClInclude Include="Envelope.h" />
     <ClInclude Include="Lfo.h" />
     <ClInclude Include="Note.h" />
