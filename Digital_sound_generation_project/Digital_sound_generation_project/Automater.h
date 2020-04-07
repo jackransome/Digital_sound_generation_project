@@ -8,10 +8,13 @@ struct Point {
 
 class Automater{
 public:
+	Automater();
+	~Automater();
+	void deleteMemoryRecursion(Point* _point);
 	void addPoint(int _time, float _value);
 	float getValueAtTime(int _time);
 	void printPoints();
 private:
 	Point *start;
-	bool hasFirstPoint = false;
+	bool hasFirstPoint;
 };

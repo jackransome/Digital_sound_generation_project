@@ -1,5 +1,21 @@
 #include "Automater.h"
 
+Automater::Automater(){
+	hasFirstPoint = false;
+}
+
+Automater::~Automater(){
+	deleteMemoryRecursion(start);
+}
+
+void Automater::deleteMemoryRecursion(Point* _point) {
+	if (_point->next) {
+		deleteMemoryRecursion(_point->next);
+	}
+	delete _point->next;
+}
+
+
 void Automater::addPoint(int _time, float _value){
 	if (!hasFirstPoint) {
 		start = new Point;

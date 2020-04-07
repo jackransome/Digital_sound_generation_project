@@ -26,15 +26,6 @@ Sequencer sequencer;
 int main()
 {
 
-	Automater automater;
-	automater.addPoint(0, 0);
-	automater.addPoint(10, 20);
-	automater.addPoint(20, 5);
-	for (int i = 0; i < 60; i++) {
-		printf("time: %d, value: %f\n", i, automater.getValueAtTime(i));
-	}
-	automater.printPoints();
-	while (true){}
 	//wav properties
 	constexpr double max_amplitude = 32760;  // "volume"
 	int sampleRate = 44100;    // samples per second
@@ -101,10 +92,17 @@ int main()
 		previousValues.push_back(0);
 	}
 
+	int maxCombFreq = 2205;
+	Automater automater;
+	automater.addPoint(0, 50);
+	automater.addPoint(sampleRate, 2205);
+	automater.addPoint(sampleRate * 2, 50);
+	automater.addPoint(sampleRate * 3, 2205);
+	automater.addPoint(sampleRate * 4, 50);
+
 	for (int n = 0; n < N; n++)
 	{
-		cutoff += 0.05;
-		delay = sampleRate / cutoff;
+
 		//---options---//
 		bool switchChannelsEverySample = false;
 		bool invertSamples = false;
@@ -113,6 +111,8 @@ int main()
 
 		//generating the sound
 
+		cutoff = automater.getValueAtTime(n);
+		delay = sampleRate / cutoff;
 		int thing = previousValues[previousValues.size() - delay];
 		previousValues.erase(previousValues.begin());
 
