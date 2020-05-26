@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Automater.cpp" />
+    <ClCompile Include="LowpassFilter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sequencer.cpp" />
     <ClCompile Include="Synthesizer.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Automater.h" />
     <ClInclude Include="Envelope.h" />
     <ClInclude Include="Lfo.h" />
+    <ClInclude Include="LowpassFilter.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Sequencer.h" />
     <ClInclude Include="Splitter.h" />
