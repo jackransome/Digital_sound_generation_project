@@ -11,6 +11,8 @@
 #include "Automater.h"
 #include "Sequencer.h"
 #include "LowpassFilter.h"
+#include "HighpassFilter.h"
+
 constexpr double two_pi = 6.283185307179586476925286766559;
 
 //writes "words" to the file
@@ -100,8 +102,14 @@ int main()
 	//automater.addPoint(sampleRate * 2, 50);
 	//automater.addPoint(sampleRate * 3, 2205);
 	//automater.addPoint(sampleRate * 4, 50);
-	sequencer.addNote(sampleRate * 4, 400, 0, 0.9, 1, Envelope(0, 0, 1, 0));
+	//sequencer.addNote(sampleRate * 8, 400, 0, 0.9, 1, Envelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate*8, 100, 0, 0.9, 0, Envelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 1000, 0, 0.9, 0, Envelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 5000, 0, 0.9, 0, Envelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 10000, 0, 0.9, 0, Envelope(0, 0, 1, 0));
+	sequencer.addNote(sampleRate * 8, 15000, 0, 0.9, 0, Envelope(0, 0, 1, 0));
 	LowpassFilter lpf = LowpassFilter(sampleRate);
+	HighpassFilter hpf = HighpassFilter(sampleRate);
 	for (int n = 0; n < N; n++)
 	{
 
@@ -118,14 +126,18 @@ int main()
 		int thing = previousValues[previousValues.size() - delay];
 		previousValues.erase(previousValues.begin());
 
-		int valuel = 0;
-		if (n < sampleRate * 2) {
-			valuel = sequencer.run(n, sampleRate, max_amplitude);
-		}
-		else {
-			valuel = lpf.getOutput(sequencer.run(n, sampleRate, max_amplitude));
-		}
 		
+
+		int valuel = 0;
+		valuel = hpf.getOutput(sequencer.run(n, sampleRate, max_amplitude));
+		hpf.changeResistance(0.99999);
+		//if (n < sampleRate * 2) {
+		//	valuel = sequencer.run(n, sampleRate, max_amplitude);
+		//}
+		//else {
+		//	valuel = hpf.getOutput(sequencer.run(n, sampleRate, max_amplitude));
+		//	hpf.changeResistance(0.99999);
+		//}
 		int valuer = valuel;// sequencer.run(n, sampleRate, max_amplitude);
 
 		write_word(f, valuel, 2);
