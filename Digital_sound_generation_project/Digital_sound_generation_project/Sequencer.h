@@ -7,9 +7,11 @@
 #include "LFO.h"
 class Sequencer {
 public:
-	float run(int time, int sampleFrequency, int maxAmplitude);
+	float run(int time, int sampleFrequency, int maxAmplitude, bool _channel);
 	void addNote(int duration, int frequency, int startTime, float volume, float phase, float dutyCycle, int generationType, int sampleIndex, Envelope envelope);
+	void addNote(int duration, int frequency, int startTime, float volume, float phase, float dutyCycle, int generationType, int sampleIndex, Envelope envelope, float _panning);
 	void addNote(int duration, int frequency, int startTime, float volume, int generationType, Envelope envelope);
+	void addNote(int duration, int frequency, int startTime, float volume, int generationType, Envelope envelope, float _panning);
 	void addDot(int startTime, float volume);
 	void setSampleFrequency(int _sampleFrequency);
 	void addLFO(float* _target, float _startPhase, float _frequency, int _waveForm, float _amplitude);

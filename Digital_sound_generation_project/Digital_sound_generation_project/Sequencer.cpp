@@ -1,6 +1,6 @@
 #include "Sequencer.h"
 //gets the output a a specific point in time
-float Sequencer::run(int time, int sampleFrequency, int maxAmplitude)
+float Sequencer::run(int time, int sampleFrequency, int maxAmplitude, bool _channel)
 {
 	float output = 0;
 	for (int i = 0; i < notes.size(); i++) {
@@ -23,7 +23,18 @@ float Sequencer::run(int time, int sampleFrequency, int maxAmplitude)
 					//applying lfo
 					// applyLFO(time);
 					//adds the displacement from the note at the current time to the final sequencer output
-					output += playNote(notes[i], time, sampleFrequency, maxAmplitude);
+					//output += playNote(notes[i], time, sampleFrequency, maxAmplitude);
+					// 0 left 1 right
+					if (_channel == 0) {
+						if (notes[i].panning < 0) {
+							output += playNote(notes[i], time, sampleFrequency, maxAmplitude);
+						}
+					}
+					else {
+						if (notes[i].panning > 0) {
+							output += playNote(notes[i], time, sampleFrequency, maxAmplitude);
+						}
+					}
 				}
 				
 			}
@@ -34,17 +45,27 @@ float Sequencer::run(int time, int sampleFrequency, int maxAmplitude)
 
 void Sequencer::addNote(int duration, int frequency, int startTime, float volume, float phase, float dutyCycle, int generationType, int sampleIndex, Envelope envelope)
 {
-	notes.push_back(Note(duration, frequency, startTime, volume, generationType, sampleIndex, dutyCycle, phase, envelope));
+	notes.push_back(Note(duration, frequency, startTime, volume, generationType, sampleIndex, dutyCycle, phase, envelope, 0));
+}
+
+void Sequencer::addNote(int duration, int frequency, int startTime, float volume, float phase, float dutyCycle, int generationType, int sampleIndex, Envelope envelope, float _panning)
+{
+	notes.push_back(Note(duration, frequency, startTime, volume, generationType, sampleIndex, dutyCycle, phase, envelope, _panning));
 }
 
 void Sequencer::addNote(int duration, int frequency, int startTime, float volume, int generationType, Envelope envelope)
 {
-	notes.push_back(Note(duration, frequency, startTime, volume, generationType, -1, 0, 0, envelope));
+	notes.push_back(Note(duration, frequency, startTime, volume, generationType, -1, 0, 0, envelope, 0));
+}
+
+void Sequencer::addNote(int duration, int frequency, int startTime, float volume, int generationType, Envelope envelope, float _panning)
+{
+	notes.push_back(Note(duration, frequency, startTime, volume, generationType, -1, 0, 0, envelope, _panning));
 }
 
 void Sequencer::addDot(int startTime, float volume)
 {
-	notes.push_back(Note(3, 0, startTime, volume, 5, -1, 0, 0, Envelope(0,0,1,0)));
+	notes.push_back(Note(3, 0, startTime, volume, 5, -1, 0, 0, Envelope(0,0,1,0), 0));
 }
 
 void Sequencer::setSampleFrequency(int _sampleFrequency)
